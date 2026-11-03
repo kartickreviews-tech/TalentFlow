@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#f5fbfa" />
+<title>TalentFlow — AI Hiring Workspace</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+:root{--ink:#173b3b;--ink-2:#365858;--muted:#829a99;--line:#e6efed;--paper:#fff;--canvas:#f5faf9;--teal:#159f9a;--teal-dark:#087f7b;--teal-soft:#e5f6f4;--mint:#d6f0ec;--gold:#d99d45;--gold-soft:#fff5e5;--blue:#7897df;--blue-soft:#eef2ff;--rose:#d97979;--rose-soft:#fff0ef;--shadow:0 10px 30px rgba(27,77,74,.055);--radius:18px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--canvas);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px}button,input,select,textarea{font:inherit}button{cursor:pointer}.app{display:flex;min-height:100vh}.sidebar{width:252px;background:#fff;border-right:1px solid var(--line);padding:26px 16px 18px;display:flex;flex-direction:column;position:fixed;inset:0 auto 0 0;z-index:20}.brand{display:flex;align-items:center;gap:11px;padding:0 12px 30px}.brand-mark{height:38px;width:38px;border-radius:13px;background:linear-gradient(145deg,#21b7ad,#087f7b);display:grid;place-items:center;color:white;box-shadow:0 7px 16px #159f9a38}.brand-mark svg{width:22px;height:22px}.brand-name{font:800 18px Manrope,sans-serif;letter-spacing:-.7px}.brand-name span{color:var(--teal)}.workspace-label{font-size:10px;font-weight:700;color:#a0b3b1;letter-spacing:1.3px;padding:0 13px 12px;text-transform:uppercase}.nav{display:grid;gap:5px}.nav-btn{border:0;background:transparent;color:#6e8987;padding:11px 13px;border-radius:11px;display:flex;align-items:center;gap:12px;text-align:left;font-weight:600;transition:.2s;width:100%}.nav-btn svg{width:18px;height:18px;stroke-width:1.8}.nav-btn:hover{background:#f4f9f8;color:var(--ink)}.nav-btn.active{background:var(--teal-soft);color:var(--teal-dark)}.nav-count{margin-left:auto;background:#d7efec;color:var(--teal-dark);font-size:10px;padding:3px 7px;border-radius:20px}.sidebar-bottom{margin-top:auto}.help-card{margin:16px 5px;padding:15px;border-radius:15px;background:linear-gradient(145deg,#eaf8f6,#f5fbfa);border:1px solid #e2f1ef}.help-card strong{font:700 12px Manrope}.help-card p{font-size:11px;line-height:1.6;color:#77918e;margin:6px 0 12px}.help-card button{border:0;background:white;border-radius:8px;padding:8px 10px;color:var(--teal-dark);font-weight:700;font-size:11px}.user-mini{display:flex;align-items:center;gap:10px;padding:15px 9px 2px;border-top:1px solid var(--line)}.avatar{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:#dff3ef;color:#147f79;font-weight:800;font-size:12px;flex:none}.avatar.a2{background:#f8ebdc;color:#a76c30}.avatar.a3{background:#e9edff;color:#6173b7}.avatar.a4{background:#fce9e9;color:#bb6a6a}.avatar.a5{background:#e8f1e5;color:#61875b}.user-name{font-size:12px;font-weight:700}.user-role{font-size:10px;color:var(--muted);margin-top:2px}.main{margin-left:252px;width:calc(100% - 252px);min-width:0}.topbar{height:78px;background:#ffffffd9;backdrop-filter:blur(12px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 36px;position:sticky;top:0;z-index:10}.crumb{font-size:12px;color:#98aaa8}.crumb strong{color:var(--ink);font-weight:700}.top-actions{display:flex;align-items:center;gap:12px}.icon-btn{width:37px;height:37px;border:1px solid var(--line);border-radius:11px;background:white;color:#708986;display:grid;place-items:center;position:relative}.icon-btn svg{width:17px;height:17px}.dot{position:absolute;right:8px;top:7px;width:6px;height:6px;border:1.5px solid white;border-radius:50%;background:#e88973}.top-divider{height:28px;width:1px;background:var(--line);margin:0 3px}.page{max-width:1500px;margin:0 auto;padding:31px 36px 48px}.view{display:none;animation:fade .25s ease}.view.active{display:block}@keyframes fade{from{opacity:.55;transform:translateY(4px)}to{opacity:1;transform:none}}.page-heading{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:25px;gap:15px}.eyebrow{font-size:10px;font-weight:800;color:var(--teal);letter-spacing:1.4px;text-transform:uppercase;margin-bottom:7px}.page-title{font:800 25px Manrope,sans-serif;letter-spacing:-1px;margin:0;color:#173b3b}.page-sub{color:var(--muted);margin:7px 0 0;font-size:12px}.btn{border:0;border-radius:10px;padding:10px 15px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:12px;transition:.2s}.btn svg{width:15px;height:15px}.btn-primary{background:var(--teal);color:#fff;box-shadow:0 5px 12px #159f9a25}.btn-primary:hover{background:var(--teal-dark);transform:translateY(-1px)}.btn-primary:disabled{background:#a2d3cf;cursor:not-allowed;transform:none;box-shadow:none}.btn-light{background:white;color:var(--ink-2);border:1px solid var(--line)}.btn-light:hover{border-color:#abdcd6;background:#fafffe}.btn-soft{background:var(--teal-soft);color:var(--teal-dark)}.btn-sm{padding:7px 10px;font-size:11px;border-radius:8px}.grid{display:grid;gap:16px}.stats-grid{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:19px}.card{background:white;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.stat-card{padding:19px 20px;position:relative;overflow:hidden}.stat-top{display:flex;align-items:center;justify-content:space-between}.stat-label{font-size:11px;color:#829997;font-weight:600}.stat-icon{height:33px;width:33px;border-radius:11px;display:grid;place-items:center;background:var(--teal-soft);color:var(--teal)}.stat-icon svg{width:16px;height:16px}.stat-value{font:800 26px Manrope,sans-serif;letter-spacing:-1px;margin:14px 0 5px}.stat-foot{font-size:10px;color:#91a5a2}.dashboard-grid{grid-template-columns:minmax(0,1.55fr) minmax(290px,.9fr);margin-bottom:17px}.card-pad{padding:20px}.card-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:19px;gap:10px}.card-title{font:700 14px Manrope,sans-serif}.card-note{font-size:10px;color:#94a7a4;margin-top:4px}.select-mini{border:1px solid var(--line);background:white;padding:7px 10px;border-radius:8px;color:#69817e;font-size:10px;outline:0}.chart{height:208px;display:flex;align-items:flex-end;gap:13px;padding:14px 2px 0;position:relative;border-bottom:1px solid var(--line);background:repeating-linear-gradient(to bottom,transparent 0,transparent 50px,#eff5f3 51px)}.bar-group{height:100%;flex:1;display:flex;align-items:flex-end;justify-content:center;gap:4px;position:relative}.bar{width:13px;max-width:35%;min-height:0;border-radius:5px 5px 2px 2px;background:#bde9e4;transition:height .35s}.bar.dark{background:var(--teal)}.bar-value{position:absolute;bottom:calc(var(--bar-height) + 5px);font-size:9px;font-weight:700;color:#6f8985;white-space:nowrap}.chart-empty{position:absolute;inset:0;display:grid;place-items:center;color:#9aadaa;font-size:11px;pointer-events:none}.chart-y-labels{position:absolute;left:0;top:8px;bottom:25px;display:flex;flex-direction:column;justify-content:space-between;color:#9aadaa;font-size:8px}.chart{padding-left:25px}.bar-group label{position:absolute;bottom:-22px;color:#91a6a2;font-size:9px}.chart-legend{display:flex;gap:16px;margin-top:31px;color:#8ca09d;font-size:10px}.legend-dot{display:inline-block;width:7px;height:7px;border-radius:3px;background:var(--teal);margin-right:5px}.legend-dot.light{background:#bde9e4}.funnel-list{display:grid;gap:16px}.funnel-row{display:grid;grid-template-columns:86px 1fr 28px;gap:10px;align-items:center;font-size:10px;color:#718a87}.funnel-track{height:8px;background:#f0f6f5;border-radius:20px;overflow:hidden}.funnel-fill{height:100%;border-radius:20px;background:linear-gradient(90deg,#a6e2da,#159f9a)}.funnel-num{text-align:right;font-weight:700;color:#496966}.activity-list{display:grid;gap:14px}.activity{display:flex;align-items:flex-start;gap:10px}.activity-icon{width:29px;height:29px;border-radius:9px;display:grid;place-items:center;background:var(--teal-soft);color:var(--teal);flex:none}.activity-icon svg{width:14px;height:14px}.activity-text{font-size:11px;line-height:1.5;color:#536f6c}.activity-text strong{color:#244b48}.activity-time{font-size:9px;color:#9aadaa;margin-top:3px}.section-link{font-size:10px;font-weight:700;color:var(--teal-dark);border:0;background:transparent}.table-wrap{overflow:auto}.data-table{width:100%;border-collapse:collapse;white-space:nowrap}.data-table th{text-align:left;color:#93a5a3;font-size:9px;text-transform:uppercase;letter-spacing:.8px;font-weight:800;padding:11px 12px;border-bottom:1px solid var(--line)}.data-table td{padding:13px 12px;border-bottom:1px solid #f0f4f3;font-size:11px;color:#58716e}.data-table tbody tr:last-child td{border-bottom:0}.data-table tbody tr:hover{background:#fbfefd}.person{display:flex;align-items:center;gap:9px}.person .avatar{width:31px;height:31px;border-radius:10px;font-size:10px}.person-name{font-size:11px;font-weight:700;color:#244946}.person-sub{font-size:9px;color:#96a8a5;margin-top:3px}.score{font-size:11px;font-weight:800;color:var(--teal-dark)}.pill{display:inline-flex;align-items:center;gap:5px;padding:5px 8px;border-radius:30px;font-size:9px;font-weight:700}.pill.green{background:#e8f7ef;color:#32865e}.pill.yellow{background:var(--gold-soft);color:#b17b30}.pill.blue{background:var(--blue-soft);color:#667cc2}.pill.gray{background:#f1f5f4;color:#7d9692}.pill.red{background:var(--rose-soft);color:#c06c6c}.toolbar{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:16px}.search-box{display:flex;align-items:center;gap:8px;background:white;border:1px solid var(--line);border-radius:10px;padding:0 11px;height:38px;min-width:230px;flex:1}.search-box svg{width:15px;height:15px;color:#9aadaa}.search-box input{border:0;outline:0;width:100%;font-size:11px;color:var(--ink);background:transparent}.filter-select{height:38px;border:1px solid var(--line);border-radius:10px;padding:0 10px;background:white;color:#6e8784;font-size:10px;outline:0;min-width:125px}.table-card{padding:5px 16px 10px}.table-toolbar{display:flex;justify-content:space-between;align-items:center;padding:13px 2px}.muted-small{font-size:10px;color:#94a8a5}.candidate-name-btn{border:0;background:transparent;padding:0;text-align:left}.candidate-name-btn:hover .person-name{color:var(--teal-dark)}.action-icon{border:0;background:transparent;color:#8ba09d;padding:5px;border-radius:7px}.action-icon:hover{background:var(--teal-soft);color:var(--teal)}.upload-layout{grid-template-columns:minmax(0,1.25fr) minmax(270px,.75fr)}.dropzone{border:1.5px dashed #b7dcd7;background:linear-gradient(145deg,#f5fcfb,#fbfefd);border-radius:16px;padding:43px 25px;text-align:center;transition:.2s}.dropzone.drag{background:#e9f8f5;border-color:var(--teal)}.upload-icon{width:54px;height:54px;display:grid;place-items:center;margin:0 auto 15px;border-radius:17px;background:#e3f6f2;color:var(--teal)}.upload-icon svg{width:25px;height:25px}.dropzone h3{font:700 15px Manrope;margin:0 0 7px}.dropzone p{font-size:11px;color:#91a7a3;line-height:1.6;margin:0 0 17px}.filetypes{display:flex;justify-content:center;gap:7px;margin-top:17px}.filetype{font-size:9px;color:#7c9692;background:white;border:1px solid var(--line);padding:5px 9px;border-radius:6px}.field-label{font-size:10px;font-weight:700;color:#6c8582;display:block;margin:0 0 7px}.field{width:100%;height:39px;border:1px solid var(--line);border-radius:9px;background:#fff;color:#496764;padding:0 11px;outline:0;font-size:11px}.field:focus,.filter-select:focus,.search-box:focus-within{border-color:#83cbc3;box-shadow:0 0 0 3px #159f9a12}.form-group{margin-bottom:15px}.file-row{display:flex;align-items:center;gap:10px;padding:11px;border:1px solid var(--line);border-radius:10px;margin-top:9px}.file-badge{height:32px;width:29px;border-radius:7px;background:#fff0ed;color:#d37c6c;display:grid;place-items:center;font-size:8px;font-weight:800}.file-info{flex:1;min-width:0}.file-name{font-size:10px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.file-size{font-size:9px;color:#9aadaa;margin-top:3px}.progress{height:4px;background:#edf4f2;border-radius:9px;margin-top:7px;overflow:hidden}.progress span{display:block;height:100%;background:var(--teal);border-radius:9px}.info-box{background:#f0f9f7;border:1px solid #e2f2ef;border-radius:12px;padding:13px;font-size:10px;color:#66817d;line-height:1.65}.info-box strong{color:#28615c}.analysis-layout{grid-template-columns: minmax(0,1.05fr) minmax(300px,.95fr)}.analysis-candidate{display:flex;align-items:center;gap:12px}.analysis-candidate .avatar{width:48px;height:48px;font-size:14px;border-radius:15px}.match-score{display:flex;align-items:center;gap:16px;margin:18px 0;padding:16px;border-radius:14px;background:#f6fbfa}.ring{width:82px;height:82px;border-radius:50%;background:conic-gradient(var(--teal) 0 88%,#e4f0ee 88% 100%);display:grid;place-items:center;position:relative;flex:none}.ring:before{content:'';position:absolute;inset:7px;border-radius:50%;background:white}.ring span{position:relative;font:800 19px Manrope;color:#1d5551}.match-explain strong{font:700 13px Manrope}.match-explain p{font-size:10px;line-height:1.5;color:#839996;margin:5px 0 0}.skill-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.skill-tag{background:#eaf7f5;color:#367a74;padding:6px 9px;border-radius:7px;font-size:9px;font-weight:700}.skill-tag.missing{background:#fff0ef;color:#b96f6c}.metric-line{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:#6d8984;margin:12px 0 6px}.metric-line strong{color:#47736d}.thinbar{height:6px;border-radius:9px;background:#eef4f3;overflow:hidden}.thinbar span{display:block;height:100%;background:var(--teal);border-radius:9px}.summary-box{padding:13px;background:#fafcfb;border:1px solid #edf2f1;border-radius:11px;color:#627c78;font-size:10px;line-height:1.7}.comparison-wrap{overflow:auto}.comparison-table{border-collapse:separate;border-spacing:0;width:100%;min-width:700px}.comparison-table th,.comparison-table td{padding:14px;border-bottom:1px solid var(--line);text-align:left;font-size:10px;vertical-align:top}.comparison-table th{background:#f9fcfb;color:#819995;font-size:9px;text-transform:uppercase;letter-spacing:.7px}.comparison-table td:first-child{color:#7b9490;font-weight:700;width:145px}.compare-candidate{display:flex;gap:8px;align-items:center;color:#244b48;font-size:11px;font-weight:700}.compare-candidate .avatar{width:28px;height:28px;border-radius:8px;font-size:9px}.kanban{display:grid;grid-template-columns:repeat(4,minmax(220px,1fr));gap:13px;align-items:start;overflow:auto;padding-bottom:8px}.kanban-col{background:#f0f7f5;border:1px solid #e8f0ee;border-radius:14px;padding:12px;min-height:320px}.kanban-head{display:flex;align-items:center;justify-content:space-between;padding:2px 3px 12px;font-size:11px;font-weight:800;color:#476561}.kanban-count{background:white;padding:3px 7px;border-radius:20px;font-size:9px;color:#829a96}.kanban-card{background:white;border:1px solid #e7efed;border-radius:11px;padding:12px;margin-bottom:9px;box-shadow:0 3px 8px #28554e08}.kanban-card .person{margin-bottom:10px}.kanban-card p{font-size:9px;color:#8ca19e;margin:0 0 10px}.kanban-foot{display:flex;align-items:center;justify-content:space-between}.modal-backdrop{position:fixed;inset:0;background:#173b3b55;backdrop-filter:blur(3px);z-index:50;display:none;align-items:center;justify-content:center;padding:20px}.modal-backdrop.show{display:flex}.modal{background:white;border-radius:18px;width:min(650px,100%);max-height:90vh;overflow:auto;box-shadow:0 25px 80px #123c3833}.modal-head{display:flex;justify-content:space-between;align-items:flex-start;padding:22px 23px;border-bottom:1px solid var(--line)}.modal-body{padding:22px 23px}.modal-close{border:0;background:#f2f7f6;color:#718b87;border-radius:8px;width:30px;height:30px;font-size:18px}.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.profile-item label{display:block;font-size:9px;color:#93a7a3;text-transform:uppercase;letter-spacing:.7px;margin-bottom:5px}.profile-item strong{font-size:11px;color:#385e59}.toast{position:fixed;right:25px;bottom:25px;background:#194f4b;color:white;padding:12px 16px;border-radius:10px;font-size:11px;box-shadow:0 12px 28px #123c3833;z-index:100;opacity:0;transform:translateY(10px);pointer-events:none;transition:.25s}.toast.show{opacity:1;transform:none}.empty-state{padding:35px;text-align:center;color:#91a7a3;font-size:11px}.mobile-menu{display:none}
+@media(max-width:1100px){.sidebar{width:220px}.main{margin-left:220px;width:calc(100% - 220px)}.page{padding:27px 23px}.topbar{padding:0 23px}.stats-grid{grid-template-columns:repeat(2,1fr)}.dashboard-grid{grid-template-columns:1fr}.upload-layout,.analysis-layout{grid-template-columns:1fr}.kanban{grid-template-columns:repeat(4,245px)}}
+@media(max-width:700px){.sidebar{width:250px;transform:translateX(-100%);transition:.25s;box-shadow:10px 0 35px #173b3b14}.sidebar.open{transform:translateX(0)}.main{margin-left:0;width:100%}.mobile-menu{display:grid}.topbar{height:65px;padding:0 16px}.page{padding:22px 15px 35px}.page-heading{align-items:flex-start;flex-direction:column}.stats-grid{gap:10px}.stat-card{padding:15px}.stat-value{font-size:22px}.top-actions{gap:7px}.top-divider,.top-actions .user-mini{display:none}.toolbar{align-items:stretch}.search-box{min-width:100%;flex-basis:100%}.filter-select{flex:1;min-width:0}.profile-grid{grid-template-columns:1fr 1fr}.chart{gap:6px}.chart .bar{width:8px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><div class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17.5 9.5 6l5 12 2.2-5H21"/><path d="M4 21h16" opacity=".55"/></svg></div><div class="brand-name">talent<span>flow</span></div></div>
+  <div class="workspace-label">Workspace</div>
+  <nav class="nav">
+    <button class="nav-btn active" data-view="dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="5" rx="2"/><rect x="13" y="10" width="8" height="11" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/></svg>Dashboard</button>
+    <button class="nav-btn" data-view="candidates"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M20 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Candidates <span class="nav-count" id="navCandidateCount">0</span></button>
+    <button class="nav-btn" data-view="upload"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5M12 3v12"/></svg>Resume upload</button>
+    <button class="nav-btn" data-view="analysis"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m12 3 1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2L12 3Z"/><path d="m19 14 1.1 2.9L23 18l-2.9 1.1L19 22l-1.1-2.9L15 18l2.9-1.1L19 14Z"/></svg>AI analysis</button>
+    <button class="nav-btn" data-view="compare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="8" height="16" rx="2"/><rect x="13" y="4" width="8" height="16" rx="2"/><path d="M7 8h.01M7 12h.01M17 8h.01M17 12h.01"/></svg>Compare candidates</button>
+    <button class="nav-btn" data-view="pipeline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="10" y="4" width="5" height="11" rx="1.5"/><rect x="17" y="4" width="5" height="7" rx="1.5"/></svg>Recruitment pipeline</button>
+  </nav>
+  <div class="sidebar-bottom"><div class="help-card"><strong>AI Resume Screening Active</strong><p>Backend connected with SQLite database & automated PDF/DOCX parsing.</p><button onclick="showToast('System operational and ready for hiring.')">System status ↗</button></div><div class="user-mini"><div class="avatar">HR</div><div><div class="user-name">Hiring Team</div><div class="user-role">Recruitment workspace</div></div></div></div>
+</aside>
+<main class="main">
+<header class="topbar"><div style="display:flex;align-items:center;gap:12px"><button class="icon-btn mobile-menu" onclick="toggleSidebar()" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><div class="crumb">Workspace <span style="padding:0 7px;color:#c2cfcd">/</span><strong id="breadcrumb">Dashboard</strong></div></div><div class="top-actions"><button class="icon-btn" onclick="showToast('All notifications synced with backend.')" aria-label="Notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><i class="dot"></i></button><div class="top-divider"></div><div class="user-mini" style="border:0;padding:0"><div class="avatar">HR</div><div><div class="user-name">Hiring Team</div><div class="user-role">Administrator</div></div></div></div></header>
+<div class="page">
+<!-- DASHBOARD -->
+<section class="view active" id="view-dashboard">
+ <div class="page-heading"><div><div class="eyebrow">YOUR HIRING OVERVIEW</div><h1 class="page-title">Good morning, team <span style="font-size:22px">✦</span></h1><p class="page-sub">Live metrics from your AI resume screening workspace.</p></div><button class="btn btn-primary" onclick="go('upload')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Upload resumes</button></div>
+ <div class="grid stats-grid">
+  <div class="card stat-card"><div class="stat-top"><span class="stat-label">Total candidates</span><span class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M20 21v-2a4 4 0 0 0-3-3.87"/></svg></span></div><div class="stat-value" id="totalCandidates">0</div><div class="stat-foot">Parsed from uploaded resume files</div></div>
+  <div class="card stat-card"><div class="stat-top"><span class="stat-label">Open job openings</span><span class="stat-icon" style="background:#fff5e8;color:#d49a44"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18M10 12v2h4v-2"/></svg></span></div><div class="stat-value" id="totalJobs">0</div><div class="stat-foot">Active positions in database</div></div>
+  <div class="card stat-card"><div class="stat-top"><span class="stat-label">Shortlisted candidates</span><span class="stat-icon" style="background:#edf1ff;color:#7187d2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m5 12 4 4L19 6"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg></span></div><div class="stat-value" id="shortlistedCount">0</div><div class="stat-foot">Ready for interviews</div></div>
+  <div class="card stat-card"><div class="stat-top"><span class="stat-label">Average match score</span><span class="stat-icon" style="background:#f0edff;color:#8b78cf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="m7 14 4-4 4 3 6-7"/></svg></span></div><div class="stat-value" id="averageScore">0<span style="font-size:16px;color:#79938f">%</span></div><div class="stat-foot">AI evaluation average</div></div>
+ </div>
+ <div class="grid dashboard-grid">
+  <div class="card card-pad"><div class="card-heading"><div><div class="card-title">Recruitment analytics</div><div class="card-note">Actual database resume uploads & shortlist volume</div></div><select class="select-mini" id="chartPeriod" onchange="changePeriod(this.value)"><option value="week">This week</option><option value="month">This month</option><option value="sixMonths" selected>Last 6 months</option><option value="year">This year</option></select></div><div class="chart" id="activityChart"></div><div class="chart-legend"><span><i class="legend-dot light"></i>Resume uploads</span><span><i class="legend-dot"></i>Shortlisted</span></div></div>
+  <div class="card card-pad"><div class="card-heading"><div><div class="card-title">Hiring funnel</div><div class="card-note">Candidate progression stages</div></div><select class="select-mini" id="funnelPeriod" onchange="changePeriod(this.value)"><option value="week">This week</option><option value="month">This month</option><option value="sixMonths" selected>Last 6 months</option><option value="year">This year</option></select></div><div class="funnel-list" id="funnelList"></div><div class="card-note" id="funnelNote" style="margin-top:16px">Counts update dynamically from database.</div></div></div>
+ <div class="card card-pad"><div class="card-heading"><div><div class="card-title">Recently reviewed candidates</div><div class="card-note">Latest additions from resume parser</div></div><button class="section-link" onclick="go('candidates')">View all candidates →</button></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Candidate</th><th>Applied for</th><th>Experience</th><th>AI match</th><th>Status</th></tr></thead><tbody id="recentCandidates"><tr><td colspan="5"><div class="empty-state">Loading candidates from backend...</div></td></tr></tbody></table></div></div>
+</section>
+<!-- CANDIDATES -->
+<section class="view" id="view-candidates">
+ <div class="page-heading"><div><div class="eyebrow">TALENT DIRECTORY</div><h1 class="page-title">Candidate management</h1><p class="page-sub">Filter, sort, search and review all screened candidates.</p></div><button class="btn btn-primary" onclick="go('upload')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Add candidates</button></div>
+ <div class="toolbar"><div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="candidateSearch" placeholder="Search name, email, skill, college..." oninput="renderCandidates()" /></div><select class="filter-select" id="collegeFilter" onchange="renderCandidates()"><option value="">All colleges</option></select><select class="filter-select" id="qualificationFilter" onchange="renderCandidates()"><option value="">All qualifications</option></select><select class="filter-select" id="sortFilter" onchange="renderCandidates()"><option value="score">Sort: Match score</option><option value="cgpa">Sort: CGPA high to low</option><option value="experience">Sort: Experience</option><option value="skills">Sort: Skills count</option><option value="name">Sort: Name A–Z</option></select></div>
+ <div class="card table-card"><div class="table-toolbar"><span class="muted-small" id="candidateResultCount">Showing 0 candidates</span><button class="btn btn-light btn-sm" onclick="clearFilters()">Clear filters</button></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Candidate</th><th>College / qualification</th><th>CGPA</th><th>Experience</th><th>Key skills</th><th>Match score</th><th>Status</th><th></th></tr></thead><tbody id="candidateRows"></tbody></table></div></div>
+</section>
+<!-- UPLOAD -->
+<section class="view" id="view-upload">
+ <div class="page-heading"><div><div class="eyebrow">BUILD YOUR TALENT POOL</div><h1 class="page-title">Resume upload & AI parsing</h1><p class="page-sub">Upload PDF or DOCX resumes. The backend AI parser automatically extracts candidate data.</p></div></div>
+ <div class="grid upload-layout">
+  <div class="card card-pad">
+   <div class="card-heading"><div><div class="card-title">Upload candidate resumes</div><div class="card-note">Select multiple PDF or Word files</div></div><span class="pill green">AI active</span></div>
+   <div class="form-group"><label class="field-label" for="jobSelect">Associated job opening</label><select class="field" id="jobSelect"><option value="">Loading jobs...</option></select></div>
+   <div class="dropzone" id="dropzone">
+    <div class="upload-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5M12 3v12"/></svg></div>
+    <h3>Drop your resumes here</h3>
+    <p>Drag and drop PDF or DOCX files here, or click browse.<br>Resumes will be instantly parsed by the backend server.</p>
+    <button class="btn btn-primary" type="button" onclick="document.getElementById('resumeFiles').click()">Browse files</button>
+    <input id="resumeFiles" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" multiple hidden>
+    <div class="filetypes"><span class="filetype">PDF</span><span class="filetype">DOCX</span><span class="filetype">AI Extracted</span></div>
+   </div>
+   <div id="uploadQueue" style="margin-top:15px"></div>
+   <div style="display:flex;justify-content:flex-end;margin-top:14px"><button class="btn btn-primary" id="processBtn" onclick="uploadAndProcessFiles()" disabled>Upload & Parse with AI →</button></div>
+  </div>
+  <div class="card card-pad">
+   <div class="card-heading"><div><div class="card-title">Backend AI Parser Features</div><div class="card-note">Automated extraction</div></div></div>
+   <div class="activity-list" style="margin-bottom:20px">
+    <div class="activity"><div class="activity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h8"/></svg></div><div class="activity-text"><strong>Smart Text Extraction</strong><div class="activity-time">Reads PDF and DOCX files securely</div></div></div>
+    <div class="activity"><div class="activity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div class="activity-text"><strong>Automatic Data Parsing</strong><div class="activity-time">Extracts name, email, CGPA, experience, skills</div></div></div>
+    <div class="activity"><div class="activity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m12 3 1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2L12 3Z"/></svg></div><div class="activity-text"><strong>AI Scoring & Ranking</strong><div class="activity-time">Computes match score and evaluation insights</div></div></div>
+   </div>
+   <div class="info-box"><strong>Backend connected</strong><br>All uploaded resumes are processed by the Python backend server and stored permanently in SQLite database (`talentflow.db`).</div>
+  </div>
+ </div>
+ <div class="card card-pad" style="margin-top:16px"><div class="card-heading"><div><div class="card-title">Recent upload batches</div><div class="card-note">History of processed resume batches</div></div></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Batch ID</th><th>Job opening</th><th>Files processed</th><th>Uploaded</th><th>Status</th></tr></thead><tbody id="recentBatches"><tr><td colspan="5"><div class="empty-state">No upload batches yet.</div></td></tr></tbody></table></div></div>
+</section>
+<!-- ANALYSIS -->
+<section class="view" id="view-analysis">
+ <div class="page-heading"><div><div class="eyebrow">AI-ASSISTED EVALUATION</div><h1 class="page-title">Candidate analysis</h1><p class="page-sub">Deep dive into AI-extracted scores, skill match, and evaluation notes.</p></div><select class="filter-select" id="analysisCandidate" onchange="renderAnalysis()" style="min-width:190px"><option value="">No candidates available</option></select></div>
+ <div class="grid analysis-layout">
+  <div class="card card-pad">
+   <div class="card-heading"><div><div class="card-title">Candidate overview</div><div class="card-note">Parsed profile & AI alignment</div></div><span class="pill green">AI Evaluated</span></div>
+   <div class="analysis-candidate"><div class="avatar" id="analysisAvatar">—</div><div><div class="person-name" id="analysisName" style="font-size:14px">No candidate selected</div><div class="person-sub" id="analysisRole">Upload resumes to view candidate analysis.</div><div class="person-sub" id="analysisEmail">No contact details available</div></div></div>
+   <div class="match-score"><div class="ring" id="analysisRing"><span id="analysisScore">0%</span></div><div class="match-explain"><strong id="analysisMatchTitle">Evaluation ready</strong><p id="analysisMatchDesc">Candidate match scores computed by backend AI parser.</p></div></div>
+   <div class="card-title" style="font-size:12px;margin-bottom:12px">Extracted Skills</div>
+   <div class="skill-row" id="analysisSkills"><span class="muted-small">No skill data yet.</span></div>
+   <div class="metric-line" style="margin-top:20px"><span>CGPA Rating</span><strong id="analysisCgpaVal">—</strong></div>
+   <div class="thinbar"><span id="analysisCgpaBar" style="width:0%"></span></div>
+   <div class="metric-line" style="margin-top:18px"><span>Experience Level</span><strong id="analysisExpVal">—</strong></div>
+   <div class="thinbar"><span id="analysisExpBar" style="width:0%"></span></div>
+  </div>
+  <div class="card card-pad">
+   <div class="card-heading"><div><div class="card-title">AI evaluation notes</div><div class="card-note">Extracted summary & qualifications</div></div><span class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m12 3 1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2L12 3Z"/></svg></span></div>
+   <div class="field-label">Candidate summary</div><div class="summary-box" id="analysisSummary">No AI-generated summary yet.</div>
+   <div class="field-label" style="margin-top:18px">Extracted Projects</div><div class="summary-box" id="analysisProjects">No projects listed.</div>
+   <div class="field-label" style="margin-top:18px">Certifications & Achievements</div><div class="summary-box" id="analysisCerts">No certifications listed.</div>
+   <div class="field-label" style="margin-top:18px">AI Evaluation Note</div><div class="summary-box" id="analysisGaps">No evaluation explanation available.</div>
+  </div>
+ </div>
+</section>
+<!-- COMPARE -->
+<section class="view" id="view-compare">
+ <div class="page-heading"><div><div class="eyebrow">MAKE THE RIGHT CALL</div><h1 class="page-title">Candidate comparison</h1><p class="page-sub">Compare shortlisted profiles side by side.</p></div><button class="btn btn-light" onclick="go('candidates')">Choose candidates</button></div>
+ <div class="card card-pad"><div class="card-heading"><div><div class="card-title">Side-by-side comparison</div><div class="card-note">Select up to three candidates in Candidate Management.</div></div><span class="pill blue" id="compareCount">0 profiles</span></div><div class="comparison-wrap"><table class="comparison-table" id="comparisonTable"></table></div></div>
+</section>
+<!-- PIPELINE -->
+<section class="view" id="view-pipeline">
+ <div class="page-heading"><div><div class="eyebrow">MOVE TALENT FORWARD</div><h1 class="page-title">Recruitment pipeline</h1><p class="page-sub">Track candidates from review through interview and hire.</p></div><button class="btn btn-primary" onclick="go('candidates')">Browse candidates</button></div>
+ <div class="grid stats-grid" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+  <div class="card stat-card"><div class="stat-label">New applications</div><div class="stat-value" id="pipelineNew">0</div><div class="stat-foot">Awaiting review</div></div>
+  <div class="card stat-card"><div class="stat-label">Shortlisted</div><div class="stat-value" id="pipelineShortlist">0</div><div class="stat-foot">Ready for next step</div></div>
+  <div class="card stat-card"><div class="stat-label">Interviews</div><div class="stat-value" id="pipelineInterview">0</div><div class="stat-foot">In progress</div></div>
+  <div class="card stat-card"><div class="stat-label">Hired</div><div class="stat-value" id="pipelineHired">0</div><div class="stat-foot">Successful hires</div></div>
+ </div>
+ <div class="kanban" id="kanban"></div>
+</section>
+</div>
+</main>
+</div>
+
+<!-- Profile Modal -->
+<div class="modal-backdrop" id="profileModal" onclick="if(event.target===this)closeModal()"><div class="modal"><div class="modal-head"><div><div class="eyebrow">CANDIDATE PROFILE</div><h2 class="page-title" id="modalName" style="font-size:19px">Candidate name</h2><p class="page-sub" id="modalRole">Role</p></div><button class="modal-close" onclick="closeModal()">×</button></div><div class="modal-body" id="modalContent"></div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+let candidates = [];
+let jobOpenings = [];
+let selectedFilesToUpload = [];
+let compareIds = [];
+let toastTimer;
+let currentPeriod = 'sixMonths';
+
+const iconEye = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>';
+const PERIOD_LABELS = { week: 'This week', month: 'This month', sixMonths: 'Last 6 months', year: 'This year' };
+
+function statusClass(s) { return s === 'Shortlisted' || s === 'Hired' ? 'green' : s === 'Interview' ? 'blue' : s === 'Rejected' ? 'red' : 'yellow'; }
+
+function go(view) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + view).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.view === view));
+  document.getElementById('breadcrumb').textContent = ({dashboard:'Dashboard', candidates:'Candidate management', upload:'Resume upload', analysis:'AI analysis', compare:'Candidate comparison', pipeline:'Recruitment pipeline'})[view];
+  document.getElementById('sidebar').classList.remove('open');
+  if (view === 'compare') renderComparison();
+  if (view === 'pipeline') renderPipeline();
+  if (view === 'analysis') renderAnalysis();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+document.querySelectorAll('.nav-btn').forEach(b => b.addEventListener('click', () => go(b.dataset.view)));
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2600); }
+function personCell(c) { return `<div class="person"><div class="avatar ${c.avatar || ''}">${c.initials || '—'}</div><div><div class="person-name">${escapeHtml(c.name || 'Unnamed')}</div><div class="person-sub">${escapeHtml(c.email || 'No email')}</div></div></div>`; }
+function escapeHtml(value) { return String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+// Fetch data from backend API
+async function loadBackendData() {
+  try {
+    const [jobsRes, candRes] = await Promise.all([
+      fetch('/api/jobs'),
+      fetch('/api/candidates')
+    ]);
+    jobOpenings = await jobsRes.json();
+    candidates = await candRes.json();
+    
+    // Update jobs dropdown
+    const jobSelect = document.getElementById('jobSelect');
+    if (jobOpenings.length) {
+      jobSelect.innerHTML = jobOpenings.map(j => `<option value="${j.id}">${escapeHtml(j.title)} (${escapeHtml(j.department || 'General')})</option>`).join('');
+    } else {
+      jobSelect.innerHTML = '<option value="">No job openings available</option>';
+    }
+    
+    renderAll();
+  } catch (err) {
+    console.error('Error loading backend data:', err);
+    showToast('Failed to connect to backend server.');
+  }
+}
+
+function dateValue(v) { const d = v ? new Date(v) : null; return d && !Number.isNaN(d.getTime()) ? d : null; }
+function atStartOfDay(d) { return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+function periodRange(period, now = new Date()) {
+  const end = new Date(now);
+  let start;
+  if (period === 'week') {
+    start = atStartOfDay(now);
+    const day = (start.getDay() + 6) % 7;
+    start.setDate(start.getDate() - day);
+  } else if (period === 'month') {
+    start = new Date(now.getFullYear(), now.getMonth(), 1);
+  } else if (period === 'year') {
+    start = new Date(now.getFullYear(), 0, 1);
+  } else {
+    start = new Date(now.getFullYear(), now.getMonth() - 5, 1);
+  }
+  return {start, end};
+}
+function inPeriod(value, period) {
+  const d = dateValue(value);
+  if (!d) return false;
+  const r = periodRange(period);
+  return d >= r.start && d <= r.end;
+}
+function getBuckets(period, now = new Date()) {
+  const buckets = [];
+  if (period === 'week') {
+    const range = periodRange(period, now);
+    const labels = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    for (let i=0;i<7;i++) {
+      const start = new Date(range.start); start.setDate(start.getDate()+i);
+      const end = new Date(start); end.setDate(end.getDate()+1);
+      buckets.push({label:labels[i], start, end});
+    }
+  } else if (period === 'month') {
+    const start = periodRange(period, now).start;
+    const last = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+    for (let day=1; day<=last; day+=7) {
+      const endDay = Math.min(day+6,last);
+      buckets.push({label:`${day}–${endDay}`, start:new Date(start.getFullYear(),start.getMonth(),day), end:new Date(start.getFullYear(),start.getMonth(),endDay+1)});
+    }
+  } else if (period === 'year') {
+    const names = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    for (let m=0;m<12;m++) buckets.push({label:names[m], start:new Date(now.getFullYear(),m,1), end:new Date(now.getFullYear(),m+1,1)});
+  } else {
+    const names = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const start = periodRange(period, now).start;
+    for (let i=0;i<6;i++) {
+      const d = new Date(start.getFullYear(),start.getMonth()+i,1);
+      buckets.push({label:names[d.getMonth()], start:d, end:new Date(d.getFullYear(),d.getMonth()+1,1)});
+    }
+  }
+  return buckets;
+}
+function eventDateForStage(candidate, stage) {
+  const history = Array.isArray(candidate.status_history) ? candidate.status_history : [];
+  const event = [...history].reverse().find(x => x.status === stage);
+  if (event) return event.at || event.date || null;
+  if (candidate.status === stage || (stage === 'Shortlisted' && ['Interview','Hired'].includes(candidate.status)))
+    return candidate.created_at || null;
+  return null;
+}
+function countStageEvents(stage, period) {
+  return candidates.filter(c => inPeriod(eventDateForStage(c, stage), period)).length;
+}
+function getPeriodCounts(period) {
+  const applications = candidates.filter(c => inPeriod(c.created_at, period)).length;
+  const reviewed = candidates.filter(c => inPeriod(c.created_at, period)).length;
+  const shortlisted = countStageEvents('Shortlisted', period);
+  const interview = countStageEvents('Interview', period);
+  const hired = countStageEvents('Hired', period);
+  return {applications, reviewed, shortlisted, interview, hired};
+}
+function renderAnalytics() {
+  const period = currentPeriod;
+  const buckets = getBuckets(period);
+  const values = buckets.map(b => {
+    const within = d => { const date = dateValue(d); return date && date >= b.start && date < b.end && date <= new Date(); };
+    const applications = candidates.filter(c => within(c.created_at)).length;
+    const shortlisted = candidates.filter(c => within(eventDateForStage(c, 'Shortlisted'))).length;
+    return {label:b.label, applications, shortlisted};
+  });
+  const max = Math.max(1, ...values.flatMap(v => [v.applications, v.shortlisted]));
+  const scaleMax = Math.max(4, Math.ceil(max / 4) * 4);
+  const axis = [scaleMax, scaleMax*.75, scaleMax*.5, scaleMax*.25, 0];
+  document.getElementById('activityChart').innerHTML = `<div class="chart-y-labels">${axis.map(n=>`<span>${n}</span>`).join('')}</div>${values.map(v => {
+    const h1 = v.applications ? Math.max(4, v.applications/scaleMax*145) : 0;
+    const h2 = v.shortlisted ? Math.max(4, v.shortlisted/scaleMax*145) : 0;
+    return `<div class="bar-group" title="${v.label}: ${v.applications} uploads, ${v.shortlisted} shortlisted"><span class="bar-value" style="--bar-height:${h1}px;left:calc(50% - 20px);">${v.applications || ''}</span><span class="bar-value" style="--bar-height:${h2}px;left:calc(50% + 4px);">${v.shortlisted || ''}</span><div class="bar" style="height:${h1}px"></div><div class="bar dark" style="height:${h2}px"></div><label>${v.label}</label></div>`;
+  }).join('')}${values.every(v => v.applications===0 && v.shortlisted===0) ? '<div class="chart-empty">No recruitment activity for this period yet</div>' : ''}`;
+  const funnel = getPeriodCounts(period);
+  const rows = [['Applications',funnel.applications],['Reviewed',funnel.reviewed],['Shortlisted',funnel.shortlisted],['Interview',funnel.interview],['Hired',funnel.hired]];
+  const scale = Math.max(1, funnel.applications, ...rows.map(x=>x[1]));
+  document.getElementById('funnelList').innerHTML = rows.map(([label,count]) => `<div class="funnel-row"><span>${label}</span><div class="funnel-track"><div class="funnel-fill" style="width:${count ? Math.max(2,count/scale*100) : 0}%"></div></div><span class="funnel-num">${count}</span></div>`).join('');
+  document.getElementById('funnelNote').textContent = `Showing backend activity for ${PERIOD_LABELS[period].toLowerCase()}.`;
+}
+function changePeriod(value) {
+  currentPeriod = value;
+  document.getElementById('chartPeriod').value = value;
+  document.getElementById('funnelPeriod').value = value;
+  renderAnalytics();
+}
+function renderDashboard() {
+  const shortlisted = candidates.filter(c => ['Shortlisted','Interview','Hired'].includes(c.status)).length;
+  const scored = candidates.filter(c => Number.isFinite(Number(c.score)));
+  const average = scored.length ? Math.round(scored.reduce((sum,c)=>sum+Number(c.score),0)/scored.length) : 0;
+  document.getElementById('totalCandidates').textContent = candidates.length;
+  document.getElementById('totalJobs').textContent = jobOpenings.length;
+  document.getElementById('shortlistedCount').textContent = shortlisted;
+  document.getElementById('averageScore').innerHTML = `${average}<span style="font-size:16px;color:#79938f">%</span>`;
+  document.getElementById('navCandidateCount').textContent = candidates.length;
+  renderAnalytics();
+}
+function renderRecent() {
+  document.getElementById('recentCandidates').innerHTML = candidates.length ? candidates.slice().sort((a,b)=>(dateValue(b.created_at)||0)-(dateValue(a.created_at)||0)).slice(0,5).map(c=>`<tr><td>${personCell(c)}</td><td>${escapeHtml(jobTitle(c.job_id))}</td><td>${Number(c.experience)||0} yrs</td><td><span class="score">${Number(c.score)||0}%</span></td><td><span class="pill ${statusClass(c.status)}">${escapeHtml(c.status || 'Review')}</span></td></tr>`).join('') : '<tr><td colspan="5"><div class="empty-state">No candidates yet. Upload resumes to get started.</div></td></tr>';
+}
+function jobTitle(jobId) {
+  const j = jobOpenings.find(x => x.id === jobId);
+  return j ? j.title : 'General';
+}
+function updateCandidateFilterOptions() {
+  const college = document.getElementById('collegeFilter');
+  const qual = document.getElementById('qualificationFilter');
+  const oldCollege = college.value, oldQual = qual.value;
+  const colleges = [...new Set(candidates.map(c=>c.college).filter(Boolean))].sort();
+  const quals = [...new Set(candidates.map(c=>c.qualification).filter(Boolean))].sort();
+  college.innerHTML = '<option value="">All colleges</option>' + colleges.map(v=>`<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join('');
+  qual.innerHTML = '<option value="">All qualifications</option>' + quals.map(v=>`<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join('');
+  college.value = colleges.includes(oldCollege) ? oldCollege : '';
+  qual.value = quals.includes(oldQual) ? oldQual : '';
+}
+function renderCandidates() {
+  updateCandidateFilterOptions();
+  const q=(document.getElementById('candidateSearch').value||'').toLowerCase();
+  const college=document.getElementById('collegeFilter').value;
+  const qual=document.getElementById('qualificationFilter').value;
+  const sort=document.getElementById('sortFilter').value;
+  const arr=candidates.filter(c=>(!q||[c.name,c.email,c.college,...(c.skills||[])].join(' ').toLowerCase().includes(q))&&(!college||c.college===college)&&(!qual||c.qualification===qual));
+  arr.sort((a,b)=>sort==='cgpa'?(Number(b.cgpa)||0)-(Number(a.cgpa)||0):sort==='experience'?(Number(b.experience)||0)-(Number(a.experience)||0):sort==='skills'?(b.skills?.length||0)-(a.skills?.length||0):sort==='name'?(a.name||'').localeCompare(b.name||''):(Number(b.score)||0)-(Number(a.score)||0));
+  document.getElementById('candidateResultCount').textContent=`Showing ${arr.length} candidate${arr.length===1?'':'s'}`;
+  document.getElementById('candidateRows').innerHTML=arr.length?arr.map(c=>`<tr><td><button class="candidate-name-btn" onclick="openProfile(${c.id})">${personCell(c)}</button></td><td><div style="font-weight:700;color:#496966">${escapeHtml(c.college||'—')}</div><div class="person-sub">${escapeHtml(c.qualification||'—')} · ${escapeHtml(c.degree||'—')}</div></td><td><strong style="color:#3f6660">${c.cgpa==null?'—':Number(c.cgpa).toFixed(1)}</strong></td><td>${Number(c.experience)||0} yrs</td><td><span style="color:#5b7d77">${escapeHtml((c.skills||[]).slice(0,3).join(', ')||'—')}</span><span class="person-sub"> ${(c.skills||[]).length>3?'+'+(c.skills.length-3)+' more':''}</span></td><td><span class="score">${Number(c.score)||0}%</span></td><td><span class="pill ${statusClass(c.status)}">${escapeHtml(c.status||'Review')}</span></td><td><button class="action-icon" title="View profile" onclick="openProfile(${c.id})">${iconEye}</button></td></tr>`).join(''):'<tr><td colspan="8"><div class="empty-state">No candidates matching criteria.</div></td></tr>';
+}
+function clearFilters(){['candidateSearch','collegeFilter','qualificationFilter'].forEach(id=>document.getElementById(id).value='');document.getElementById('sortFilter').value='score';renderCandidates();}
+
+function openProfile(id){
+  const c=candidates.find(x=>x.id===id);
+  if(!c)return;
+  document.getElementById('modalName').textContent=c.name||'Candidate';
+  document.getElementById('modalRole').textContent=jobTitle(c.job_id)+' · '+(Number(c.experience)||0)+' years experience';
+  document.getElementById('modalContent').innerHTML=`
+    <div class="analysis-candidate" style="margin-bottom:18px"><div class="avatar ${c.avatar||''}" style="width:48px;height:48px">${c.initials||'—'}</div><div><div class="person-name" style="font-size:14px">${escapeHtml(c.name)}</div><div class="person-sub">${escapeHtml(c.email)} · ${escapeHtml(c.phone)}</div><span class="pill ${statusClass(c.status)}" style="margin-top:6px">${escapeHtml(c.status||'Review')}</span></div><div style="margin-left:auto;text-align:right"><div class="score" style="font-size:22px">${Number(c.score)||0}%</div><div class="person-sub">AI match</div></div></div>
+    <div class="profile-grid">
+      <div class="profile-item"><label>College</label><strong>${escapeHtml(c.college||'—')}</strong></div>
+      <div class="profile-item"><label>Qualification</label><strong>${escapeHtml(c.qualification||'—')} · ${escapeHtml(c.degree||'—')}</strong></div>
+      <div class="profile-item"><label>CGPA</label><strong>${c.cgpa==null?'—':Number(c.cgpa).toFixed(1)+' / 10'}</strong></div>
+      <div class="profile-item"><label>Experience</label><strong>${Number(c.experience)||0} years</strong></div>
+    </div>
+    <div class="field-label" style="margin-top:20px">Extracted Skills</div><div class="skill-row">${(c.skills||[]).map(x=>`<span class="skill-tag">${escapeHtml(x)}</span>`).join('')||'—'}</div>
+    <div class="field-label" style="margin-top:18px">Projects</div><div class="summary-box">${(c.projects||[]).map(escapeHtml).join('<br>')||'—'}</div>
+    <div class="field-label" style="margin-top:18px">Certifications</div><div class="summary-box">${(c.certs||[]).map(escapeHtml).join(' · ')||'—'}</div>
+    <div class="field-label" style="margin-top:18px">Achievements</div><div class="summary-box">${(c.achievements||[]).map(escapeHtml).join(' · ')||'—'}</div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:20px">
+      <button class="btn btn-light" onclick="toggleCompare(${c.id})">${compareIds.includes(c.id)?'Remove from comparison':'Add to comparison'}</button>
+      <button class="btn btn-primary" onclick="updateStatus(${c.id},'Shortlisted');closeModal()">Shortlist candidate</button>
+    </div>`;
+  document.getElementById('profileModal').classList.add('show');
+}
+function closeModal(){document.getElementById('profileModal').classList.remove('show');}
+
+async function updateStatus(id, newStatus){
+  try {
+    const res = await fetch(`/api/candidates/${id}/status`, {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({status: newStatus})
+    });
+    const data = await res.json();
+    if(data.success){
+      const c = candidates.find(x => x.id === id);
+      if(c) c.status = newStatus;
+      renderAll();
+      showToast(`Candidate moved to ${newStatus}.`);
+    }
+  } catch(e) {
+    showToast('Failed to update status.');
+  }
+}
+
+function toggleCompare(id){
+  if(compareIds.includes(id)) compareIds=compareIds.filter(x=>x!==id);
+  else if(compareIds.length<3) compareIds.push(id);
+  else{showToast('Compare up to 3 candidates.');return;}
+  renderComparison();
+  showToast('Comparison list updated.');
+}
+
+function renderComparison(){
+  const arr=compareIds.map(id=>candidates.find(c=>c.id===id)).filter(Boolean);
+  document.getElementById('compareCount').textContent=arr.length+' profile'+(arr.length===1?'':'s');
+  const rows=[
+    ['Match score',c=>`${Number(c.score)||0}%`],
+    ['Current status',c=>c.status||'Review'],
+    ['College',c=>escapeHtml(c.college||'—')],
+    ['Qualification',c=>escapeHtml((c.qualification||'—')+' · '+(c.degree||'—'))],
+    ['CGPA',c=>c.cgpa==null?'—':Number(c.cgpa).toFixed(1)+' / 10'],
+    ['Experience',c=>(Number(c.experience)||0)+' years'],
+    ['Skills',c=>(c.skills||[]).map(escapeHtml).join(', ')||'—'],
+    ['Projects',c=>(c.projects||[]).map(escapeHtml).join('<br>')||'—'],
+    ['Certifications',c=>(c.certs||[]).map(escapeHtml).join('<br>')||'—']
+  ];
+  document.getElementById('comparisonTable').innerHTML=arr.length?`<thead><tr><th>Criteria</th>${arr.map(c=>`<th><div class="compare-candidate"><div class="avatar ${c.avatar||''}">${c.initials||'—'}</div>${escapeHtml(c.name)}</div><div style="font-size:9px;color:#91a5a1;font-weight:400;margin:5px 0 0 36px">${escapeHtml(jobTitle(c.job_id))}</div></th>`).join('')}</tr></thead><tbody>${rows.map(([label,fn])=>`<tr><td>${label}</td>${arr.map(c=>`<td>${fn(c)}</td>`).join('')}</tr>`).join('')}</tbody>`:'<tbody><tr><td colspan="4" class="empty-state">No candidates selected for comparison.</td></tr></tbody>';
+}
+
+function renderAnalysis(){
+  const select=document.getElementById('analysisCandidate');
+  if(!candidates.length){
+    select.innerHTML='<option value="">No candidates available</option>';
+    select.disabled=true;
+    document.getElementById('analysisAvatar').textContent='—';
+    document.getElementById('analysisAvatar').className='avatar';
+    document.getElementById('analysisName').textContent='No candidate selected';
+    document.getElementById('analysisRole').textContent='Upload resumes to view analysis.';
+    document.getElementById('analysisEmail').textContent='No contact details';
+    document.getElementById('analysisScore').textContent='0%';
+    document.getElementById('analysisRing').style.background='conic-gradient(var(--teal) 0 0%,#e4f0ee 0 100%)';
+    document.getElementById('analysisSummary').textContent='No candidate data found.';
+    document.getElementById('analysisSkills').innerHTML='<span class="muted-small">No skills.</span>';
+    return;
+  }
+  select.disabled=false;
+  const current=candidates.find(c=>String(c.id)===select.value)||candidates[0];
+  select.innerHTML=candidates.map(c=>`<option value="${c.id}">${escapeHtml(c.name)} · ${escapeHtml(jobTitle(c.job_id))}</option>`).join('');
+  select.value=String(current.id);
+  
+  document.getElementById('analysisAvatar').textContent=current.initials||'—';
+  document.getElementById('analysisAvatar').className='avatar '+(current.avatar||'');
+  document.getElementById('analysisName').textContent=current.name||'Candidate';
+  document.getElementById('analysisRole').textContent=jobTitle(current.job_id)+' · '+(Number(current.experience)||0)+' years experience';
+  document.getElementById('analysisEmail').textContent=current.email||'No email';
+  
+  const score=Number(current.score)||0;
+  document.getElementById('analysisScore').textContent=score+'%';
+  document.getElementById('analysisRing').style.background=`conic-gradient(var(--teal) 0 ${score}%,#e4f0ee ${score}% 100%)`;
+  document.getElementById('analysisMatchTitle').textContent=`AI Match Score: ${score}%`;
+  document.getElementById('analysisMatchDesc').textContent=current.evaluation_explanation||'Evaluated via AI resume parsing.';
+  
+  document.getElementById('analysisSkills').innerHTML=(current.skills||[]).map(s=>`<span class="skill-tag">${escapeHtml(s)}</span>`).join('')||'<span class="muted-small">No skills extracted</span>';
+  
+  const cgpa = current.cgpa != null ? current.cgpa : 8.0;
+  document.getElementById('analysisCgpaVal').textContent = (current.cgpa != null ? current.cgpa.toFixed(1) : '—') + ' / 10';
+  document.getElementById('analysisCgpaBar').style.width = Math.min(100, (cgpa / 10) * 100) + '%';
+  
+  const exp = Number(current.experience) || 0;
+  document.getElementById('analysisExpVal').textContent = exp + ' years';
+  document.getElementById('analysisExpBar').style.width = Math.min(100, (exp / 10) * 100) + '%';
+  
+  document.getElementById('analysisSummary').textContent=current.summary||'No summary available.';
+  document.getElementById('analysisProjects').innerHTML=(current.projects||[]).map(escapeHtml).join('<br>')||'No projects listed.';
+  document.getElementById('analysisCerts').innerHTML=((current.certs||[]).concat(current.achievements||[])).map(escapeHtml).join(' · ')||(current.achievements||[]).map(escapeHtml).join(' · ')||'No certifications listed.';
+  document.getElementById('analysisGaps').textContent=current.evaluation_explanation||'No evaluation notes.';
+}
+
+function renderPipeline(){
+  const stages=['Review','Shortlisted','Interview','Hired'];
+  const funnel = getPeriodCounts(currentPeriod);
+  document.getElementById('pipelineNew').textContent=funnel.applications;
+  document.getElementById('pipelineShortlist').textContent=funnel.shortlisted;
+  document.getElementById('pipelineInterview').textContent=funnel.interview;
+  document.getElementById('pipelineHired').textContent=funnel.hired;
+  
+  document.getElementById('kanban').innerHTML=stages.map(stage=>{
+    const arr=candidates.filter(c=>(c.status||'Review')===stage);
+    return `<div class="kanban-col"><div class="kanban-head"><span>${stage}</span><span class="kanban-count">${arr.length}</span></div>${arr.map(c=>`<div class="kanban-card"><div class="person"><div class="avatar ${c.avatar||''}">${c.initials||'—'}</div><div><div class="person-name">${escapeHtml(c.name)}</div><div class="person-sub">${escapeHtml(jobTitle(c.job_id))}</div></div></div><p>${escapeHtml(c.college||'College not listed')} · ${Number(c.experience)||0} yrs</p><div class="kanban-foot"><span class="score">${Number(c.score)||0}% match</span><select class="select-mini" onchange="updateStatus(${c.id},this.value)"><option value="Review" ${stage==='Review'?'selected':''}>Review</option><option value="Shortlisted" ${stage==='Shortlisted'?'selected':''}>Shortlist</option><option value="Interview" ${stage==='Interview'?'selected':''}>Interview</option><option value="Hired" ${stage==='Hired'?'selected':''}>Hired</option><option value="Rejected">Reject</option></select></div></div>`).join('')||'<div class="empty-state">No candidates in stage.</div>'}</div>`;
+  }).join('');
+}
+
+function renderUploadQueue(){
+  const processBtn = document.getElementById('processBtn');
+  processBtn.disabled = selectedFilesToUpload.length === 0;
+  document.getElementById('uploadQueue').innerHTML = selectedFilesToUpload.map((file, i)=>`<div class="file-row"><div class="file-badge">${file.name.split('.').pop().toUpperCase()}</div><div class="file-info"><div class="file-name">${escapeHtml(file.name)}</div><div class="file-size">${(file.size/1024/1024).toFixed(2)} MB · Ready to parse</div></div><span class="pill blue">Queued</span><button class="action-icon" type="button" onclick="removeQueueFile(${i})">×</button></div>`).join('');
+}
+function removeQueueFile(i){ selectedFilesToUpload.splice(i,1); renderUploadQueue(); }
+
+async function uploadAndProcessFiles(){
+  if(!selectedFilesToUpload.length){
+    showToast('Please select at least one file to upload.');
+    return;
+  }
+  const jobId = document.getElementById('jobSelect').value;
+  const formData = new FormData();
+  selectedFilesToUpload.forEach(f => formData.append('files', f));
+  if(jobId) formData.append('job_id', jobId);
+  
+  showToast('Uploading & parsing resumes with AI...');
+  try {
+    const res = await fetch('/api/upload', {
+      method: 'POST',
+      body: formData
+    });
+    const data = await res.json();
+    if(res.ok && data.success){
+      showToast(`Successfully parsed ${data.processed} resume(s)!`);
+      selectedFilesToUpload = [];
+      renderUploadQueue();
+      await loadBackendData();
+      go('candidates');
+    } else {
+      showToast('Upload failed: ' + (data.error || 'Unknown error'));
+    }
+  } catch(e) {
+    console.error('Upload network error:', e);
+    showToast('Error uploading files to backend server.');
+  }
+}
+
+function renderBatches(){
+  document.getElementById('recentBatches').innerHTML = candidates.length ? `<tr><td><strong>BATCH-LIVE</strong></td><td>General</td><td>${candidates.length} candidate(s)</td><td>${new Date().toLocaleString()}</td><td><span class="pill green">Active</span></td></tr>` : '<tr><td colspan="5"><div class="empty-state">No upload batches yet.</div></td></tr>';
+}
+
+function renderAll(){
+  renderDashboard();
+  renderRecent();
+  renderCandidates();
+  renderComparison();
+  renderPipeline();
+  renderAnalysis();
+  renderBatches();
+}
+
+const dz = document.getElementById('dropzone');
+const fileInput = document.getElementById('resumeFiles');
+
+if(fileInput) {
+  fileInput.addEventListener('change', e => {
+    if (e.target.files && e.target.files.length > 0) {
+      selectedFilesToUpload.push(...Array.from(e.target.files));
+      e.target.value = ''; // clear input so same file can be chosen again
+      renderUploadQueue();
+    }
+  });
+}
+
+if(dz) {
+  ['dragenter','dragover'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.add('drag'); }));
+  ['dragleave','drop'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.remove('drag'); }));
+  dz.addEventListener('drop', e => {
+    e.preventDefault();
+    dz.classList.remove('drag');
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      selectedFilesToUpload.push(...Array.from(e.dataTransfer.files));
+      renderUploadQueue();
+    }
+  });
+}
+
+// Initial load
+loadBackendData();
+</script>
+</body>
+</html>
